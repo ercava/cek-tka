@@ -15,7 +15,7 @@
     <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-2xl">
         <div class="text-center mb-8">
             <h1 class="text-3xl font-extrabold text-slate-800">CEK TKA ERCAVA ☄️</h1>
-            <p class="text-slate-500 mt-2">Pakai NISN untuk melihat detail nilai</p>
+            <p class="text-slate-500 mt-2">Pakai NISN untuk melihat detail nilai!</p>
             <p class="text-blue-600 font-bold mt-1 animate-pulse">Sertifikat sudah rilis! Download sekarang!</p>
         </div>
 
@@ -71,7 +71,6 @@
     <script>
         let dataSiswa = [];
 
-        // Parse data from global variable (loaded via data/results.js)
         if (window.RAW_DATA) {
             Papa.parse(window.RAW_DATA, {
                 header: true,
@@ -92,9 +91,7 @@
             const outNilai = document.getElementById('outNilai');
             const btnDownload = document.getElementById('btnDownload');
 
-            // Cari NISN (mencocokkan 10 digit di dalam kolom Nomor Peserta NISN)
             const siswa = dataSiswa.find(row => {
-                // Ensure row is defined and has the property
                 if (!row || !row['Nomor Peserta NISN']) return false;
                 const fullID = row['Nomor Peserta NISN'] || "";
                 return fullID.includes(input) && input !== "" && input.length >= 10;
@@ -104,12 +101,10 @@
                 errorDiv.classList.add('hidden');
                 resultDiv.classList.remove('hidden');
 
-                // Isi Header
                 const nama = siswa['Nama Peserta'];
                 document.getElementById('outNama').innerText = nama;
                 document.getElementById('outTTL').innerText = (siswa['Tempat, Tanggal Lahir'] || "").replace(/\n/g, ' ');
 
-                // Generate link sertifikat from mapping
                 const matchNisn = siswa['Nomor Peserta NISN'].match(/\d{10}/);
                 const actualNisn = matchNisn ? matchNisn[0] : input;
 
@@ -120,7 +115,6 @@
                     btnDownload.classList.add('hidden');
                 }
 
-                // Bersihkan & Isi Tabel Nilai
                 const listMapel = [
                     { label: 'Bahasa Indonesia', key: 'Bahasa Indonesia' },
                     { label: 'Matematika', key: 'Matematika' },
